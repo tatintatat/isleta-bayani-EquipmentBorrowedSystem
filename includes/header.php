@@ -54,11 +54,11 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
     </nav>
 
     <div class="sidebar-footer">
-        <p>ITEL 203 &mdash; WeST</p>
+        <p>ITEL 203 &mdash; Team Rizal rights 
+           Sponsored by: AkayniBossRhein, Team Welog, Tato Shawarma, Noliboy's Poultry</p>
     </div>
 </div>
 
-<!-- Mobile Top Bar -->
 <div class="topbar">
     <button class="menu-toggle" id="menuToggle">
         <i class="fas fa-bars"></i>
@@ -82,3 +82,4 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
             <div class="page-actions"><?= $pageAction ?></div>
         <?php endif; ?>
     </div>
+
