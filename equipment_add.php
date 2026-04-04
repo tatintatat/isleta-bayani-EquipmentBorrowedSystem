@@ -5,14 +5,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name     = clean($conn, $_POST['name']);
     $category = clean($conn, $_POST['category']);
     $desc     = clean($conn, $_POST['description']);
-    $serial   = clean($conn, $_POST['serial_number']);
     $total    = (int)$_POST['total_quantity'];
     $avail    = (int)$_POST['available_quantity'];
     $cond     = clean($conn, $_POST['condition_status']);
 
     if ($name && $category && $total > 0) {
-        $sql = "INSERT INTO equipment (name,category,description,serial_number,total_quantity,available_quantity,condition_status)
-                VALUES ('$name','$category','$desc','$serial',$total,$avail,'$cond')";
+        $sql = "INSERT INTO equipment (name,category,description,total_quantity,available_quantity,condition_status)
+                VALUES ('$name','$category','$desc',$total,$avail,'$cond')";
         if ($conn->query($sql)) {
             header("Location: equipment.php?msg=added");
             exit;
@@ -52,10 +51,6 @@ include 'includes/header.php';
                             <option value="<?= $c ?>" <?= ($_POST['category']??'')===$c?'selected':'' ?>><?= $c ?></option>
                         <?php endforeach; ?>
                     </select>
-                </div>
-                <div class="form-group">
-                    <label>Serial Number</label>
-                    <input type="text" name="serial_number" placeholder="e.g. DL-INS-2024-001" value="<?= htmlspecialchars($_POST['serial_number'] ?? '') ?>">
                 </div>
                 <div class="form-group">
                     <label>Total Quantity *</label>
