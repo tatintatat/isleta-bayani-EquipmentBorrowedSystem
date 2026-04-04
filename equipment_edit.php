@@ -9,7 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name   = clean($conn, $_POST['name']);
     $cat    = clean($conn, $_POST['category']);
     $desc   = clean($conn, $_POST['description']);
-    $serial = clean($conn, $_POST['serial_number']);
     $total  = (int)$_POST['total_quantity'];
     $avail  = (int)$_POST['available_quantity'];
     $cond   = clean($conn, $_POST['condition_status']);
@@ -50,7 +49,6 @@ include 'includes/header.php';
                 </div>
                 <div class="form-group">
                     <label>Serial Number</label>
-                    <input type="text" name="serial_number" value="<?= htmlspecialchars($eq['serial_number']) ?>">
                 </div>
                 <div class="form-group">
                     <label>Total Quantity</label>
