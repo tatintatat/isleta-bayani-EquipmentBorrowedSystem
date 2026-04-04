@@ -6,16 +6,16 @@ $eq = $conn->query("SELECT * FROM equipment WHERE id=$id")->fetch_assoc();
 if (!$eq) { header("Location: equipment.php"); exit; }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name   = clean($conn, $_POST['name']);
-    $cat    = clean($conn, $_POST['category']);
-    $desc   = clean($conn, $_POST['description']);
-    $total  = (int)$_POST['total_quantity'];
-    $avail  = (int)$_POST['available_quantity'];
-    $cond   = clean($conn, $_POST['condition_status']);
+    $name  = clean($conn, $_POST['name']);
+    $cat   = clean($conn, $_POST['category']);
+    $desc  = clean($conn, $_POST['description']);
+    $total = (int)$_POST['total_quantity'];
+    $avail = (int)$_POST['available_quantity'];
+    $cond  = clean($conn, $_POST['condition_status']);
 
-    $sql = "UPDATE equipment SET name='$name',category='$cat',description='$desc',
-            serial_number='$serial',total_quantity=$total,available_quantity=$avail,
-            condition_status='$cond' WHERE id=$id";
+    $sql = "UPDATE equipment SET name='$name', category='$cat', description='$desc',
+            total_quantity=$total, available_quantity=$avail, condition_status='$cond'
+            WHERE id=$id";
     if ($conn->query($sql)) {
         header("Location: equipment.php?msg=updated"); exit;
     } else {
@@ -28,7 +28,9 @@ $pageAction = '<a href="equipment.php" class="btn btn-outline"><i class="fas fa-
 include 'includes/header.php';
 ?>
 
-<?php if (!empty($error)): ?><div class="flash error"><i class="fas fa-exclamation-circle"></i><?= $error ?></div><?php endif; ?>
+<?php if (!empty($error)): ?>
+    <div class="flash error"><i class="fas fa-exclamation-circle"></i><?= $error ?></div>
+<?php endif; ?>
 
 <div class="card">
     <div class="card-header"><h2 class="card-title">Edit Equipment Details</h2></div>
@@ -48,7 +50,12 @@ include 'includes/header.php';
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Serial Number</label>
+                    <label>Condition</label>
+                    <select name="condition_status">
+                        <?php foreach(['Excellent','Good','Fair','Needs Repair'] as $c): ?>
+                            <option value="<?= $c ?>" <?= $eq['condition_status']===$c?'selected':'' ?>><?= $c ?></option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>Total Quantity</label>
@@ -57,14 +64,6 @@ include 'includes/header.php';
                 <div class="form-group">
                     <label>Available Quantity</label>
                     <input type="number" name="available_quantity" min="0" value="<?= $eq['available_quantity'] ?>" required>
-                </div>
-                <div class="form-group">
-                    <label>Condition</label>
-                    <select name="condition_status">
-                        <?php foreach(['Excellent','Good','Fair','Needs Repair'] as $c): ?>
-                            <option value="<?= $c ?>" <?= $eq['condition_status']===$c?'selected':'' ?>><?= $c ?></option>
-                        <?php endforeach; ?>
-                    </select>
                 </div>
                 <div class="form-group span-2">
                     <label>Description</label>
@@ -78,4 +77,5 @@ include 'includes/header.php';
         </form>
     </div>
 </div>
+
 <?php include 'includes/footer.php'; ?>
